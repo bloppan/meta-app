@@ -1,0 +1,5 @@
+#!/bin/sh
+
+userinit.sh &
+
+exit 0
