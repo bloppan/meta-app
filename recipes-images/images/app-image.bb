@@ -95,8 +95,8 @@ IMAGE_INSTALL += " \
 
 inherit extrausers
 EXTRA_USERS_PARAMS = "\
-			useradd -P passwd1 bernar; \
-			useradd -P passwd2 bernux; \
+			useradd -P passwd1 user1; \
+			useradd -P passwd2 user2; \
 			"
          
 mount_smackfs () {
