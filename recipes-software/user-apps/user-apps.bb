@@ -10,17 +10,17 @@ SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
 SRC_URI = " \
-		git://github.com/blpanadero/app_daemon.git;destsuffix=git/app_daemon \
-		git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes"
+		git://github.com/blpanadero/app_daemon.git;destsuffix=git/app_daemon;protocol=https \
+		git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes;protocol=https"
 
 S = "${WORKDIR}/git"
 
 INSANE_SKIP_${PN} = "ldflags"
 FILES_${PN} = "${bindir} "
 
-#do_compile() {
-#	${CC} ${CFLAGS} ${LDFLAGS} -lpthread ${S}/app_daemon/main.cpp -o app_daemon
-#}
+do_compile() {
+	${CC} ${CFLAGS} ${LDFLAGS} -lpthread -shared ${S}/app_daemon/src/main.cpp -o app_daemon/Release/app_daemon
+}
 
 do_install() {
 	install -d ${D}${bindir}

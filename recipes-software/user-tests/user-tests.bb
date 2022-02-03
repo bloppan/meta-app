@@ -10,9 +10,9 @@ SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
 SRC_URI = " \
-		git://github.com/blpanadero/app_shared_libraries.git;destsuffix=git/app_shared_libraries \
-		git://github.com/blpanadero/app_tests.git;destsuffix=git/app_tests \
-		git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes "
+		git://github.com/blpanadero/app_shared_libraries.git;destsuffix=git/app_shared_libraries;protocol=https \
+		git://github.com/blpanadero/app_tests.git;destsuffix=git/app_tests;protocol=https \
+		git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes;protocol=https "
 
 S = "${WORKDIR}/git"
 
@@ -20,10 +20,10 @@ S = "${WORKDIR}/git"
 FILES_${PN} = "${bindir} "
 
 do_compile() {
-	${CC} ${CFLAGS} ${LDFLAGS} -shared app_tests/GPIO_test/main.c -o GPIO_test
-	${CC} ${CFLAGS} ${LDFLAGS} -shared app_tests/HTS221_test/main.c -o HTS221_test
-	${CC} ${CFLAGS} ${LDFLAGS} -shared app_tests/PAC1932_test/main.c -o PAC1932_test
-	${CC} ${CFLAGS} ${LDFLAGS} -shared app_tests/PCA9532_test/main.c -o PCA9532_test
+	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/GPIO_test/main.c -o GPIO_test
+	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/HTS221_test/main.c -o HTS221_test
+	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/PAC1932_test/main.c -o PAC1932_test
+	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/PCA9532_test/main.c -o PCA9532_test
 }
 
 do_install() {

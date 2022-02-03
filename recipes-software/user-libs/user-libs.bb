@@ -10,8 +10,8 @@ SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
 SRC_URI = " \
-	git://github.com/blpanadero/app_shared_libraries.git;destsuffix=git/app_shared_libraries \
-	git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes"
+	git://github.com/blpanadero/app_shared_libraries.git;destsuffix=git/app_shared_libraries;protocol=https \
+	git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes;protocol=https"
 
 S = "${WORKDIR}/git"
 

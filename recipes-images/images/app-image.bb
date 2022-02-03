@@ -41,22 +41,19 @@ DEV_SDK = " \
 
 EXTRA_TOOLS = " \
     android-tools \
-    bzip2 \
+    can-utils \
     coreutils \
     curl \
     diffutils \
     dosfstools \
     e2fsprogs-mke2fs \
     ethtool \
-    fbset \
     findutils \
-    grep \
     i2c-tools \
     ifupdown \
     iperf3 \
     iproute2 \
     iptables \
-    less \
     lsof \
     ntp ntp-tickadj \
     procps \
@@ -75,22 +72,24 @@ WIFI = " \
     wpa-supplicant \
 "
 
-
-USER_TOOLS = " \
+USER_SOFTWARE = " \
     user-apps \
-    user-tests \
     user-libs \
+    user-tests \
     user-scripts \
-    "
-    
+"
+
+USER_CONFIG = " \
+    config-files \
+    init-services \
+"
+
 IMAGE_INSTALL += " \
     ${CORE_OS} \
     ${DEV_SDK} \
     ${EXTRA_TOOLS} \
     ${WIFI} \
-    ${USER_TOOLS} \
-    config-files \
-    init-services \
+    ${USER_CONFIG} \
 "
 
 inherit extrausers
