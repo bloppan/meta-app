@@ -1,0 +1,60 @@
+From 2494b62df638eb2f0ed27fcb1b026bbf1c458d44 Mon Sep 17 00:00:00 2001
+From: blpanadero <bloppan@etsid.upv.es>
+Date: Wed, 16 Feb 2022 10:18:36 +0100
+Subject: [PATCH] enable CAN disable UART3
+
+---
+ .../dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
+index 965f64c87c56..7de87d414726 100644
+--- a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
++++ b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
+@@ -148,8 +148,8 @@
+ 
+ 	pinctrl_flexcan1: flexcan1grp {
+ 		fsl,pins = <
+-			MX6UL_PAD_LCD_DATA09__FLEXCAN1_RX	0x1b020
+-			MX6UL_PAD_LCD_DATA08__FLEXCAN1_TX	0x1b020
++			MX6UL_PAD_UART3_RTS_B__FLEXCAN1_RX	0x1b020
++			MX6UL_PAD_UART3_CTS_B__FLEXCAN1_TX	0x1b020
+ 		>;
+ 	};
+ 
+@@ -220,7 +220,8 @@
+ 			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX   0x1b0b1
+ 		>;
+ 	};
+-
++	
++/*	CAN Enabled on UART3 pins
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
+@@ -229,7 +230,7 @@
+ 			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+ 		>;
+ 	};
+-
++*/
+ 	pinctrl_wdog: wdoggrp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_GPIO1_IO08__WDOG1_WDOG_B	0x78b0
+@@ -287,13 +288,15 @@
+ };
+ 
+ /* ttymxc2 UART */
++
++/*	CAN Enabled on UART3 pins
+ &uart3 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart3>;
+ 	fsl,uart-has-rtscts;
+ 	status = "okay";
+ };
+-
++*/
+ &usbotg1 {
+ 	dr_mode = "host";
+ 	status = "okay";

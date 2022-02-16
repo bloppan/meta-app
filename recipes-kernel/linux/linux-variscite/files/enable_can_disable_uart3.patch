@@ -1,0 +1,49 @@
+diff --git a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
+index 965f64c87c56..beb834d239d1 100644
+--- a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
++++ b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
+@@ -148,8 +148,8 @@
+ 
+ 	pinctrl_flexcan1: flexcan1grp {
+ 		fsl,pins = <
+-			MX6UL_PAD_LCD_DATA09__FLEXCAN1_RX	0x1b020
+-			MX6UL_PAD_LCD_DATA08__FLEXCAN1_TX	0x1b020
++			MX6UL_PAD_UART3_RTS_B__FLEXCAN1_RX	0x1b020
++			MX6UL_PAD_UART3_CTS_B__FLEXCAN1_TX	0x1b020
+ 		>;
+ 	};
+ 
+@@ -220,7 +220,7 @@
+ 			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX   0x1b0b1
+ 		>;
+ 	};
+-
++/*
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
+@@ -229,7 +229,7 @@
+ 			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+ 		>;
+ 	};
+-
++*/
+ 	pinctrl_wdog: wdoggrp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_GPIO1_IO08__WDOG1_WDOG_B	0x78b0
+@@ -287,13 +287,14 @@
+ };
+ 
+ /* ttymxc2 UART */
++/*
+ &uart3 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart3>;
+ 	fsl,uart-has-rtscts;
+ 	status = "okay";
+ };
+-
++*/
+ &usbotg1 {
+ 	dr_mode = "host";
+ 	status = "okay";

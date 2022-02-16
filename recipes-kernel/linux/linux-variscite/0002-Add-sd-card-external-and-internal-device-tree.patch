@@ -1,0 +1,240 @@
+From e398c6029edf762575207f7da943d737621ce482 Mon Sep 17 00:00:00 2001
+From: blpanadero <bloppan@etsid.upv.es>
+Date: Wed, 16 Feb 2022 11:29:29 +0100
+Subject: [PATCH] Add sd card external and internal device tree
+
+---
+ arch/arm/boot/dts/Makefile                    |  2 +
+ ...-dart-6ulcustomboard-sd-card-external.dtsi | 71 +++++++++++++++++++
+ ...-dart-6ulcustomboard-sd-card-internal.dtsi | 71 +++++++++++++++++++
+ ...t-6ulcustomboard-emmc-sd-card-external.dts | 22 ++++++
+ ...t-6ulcustomboard-emmc-sd-card-internal.dts | 22 ++++++
+ 5 files changed, 188 insertions(+)
+ create mode 100644 arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-external.dtsi
+ create mode 100644 arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-internal.dtsi
+ create mode 100644 arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-external.dts
+ create mode 100644 arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-internal.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index b513d67a9a4c..25ad5e051fd7 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -674,6 +674,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
+ 	imx6ull-phytec-segin-lc-rdk-nand.dtb \
+ 	imx6ull-var-dart-6ulcustomboard-emmc-sd-card.dtb \
++	imx6ull-var-dart-6ulcustomboard-emmc-sd-card-internal.dtb \
++	imx6ull-var-dart-6ulcustomboard-emmc-sd-card-external.dtb \
+ 	imx6ull-var-dart-6ulcustomboard-emmc-wifi.dtb \
+ 	imx6ull-var-dart-6ulcustomboard-nand-sd-card.dtb \
+ 	imx6ull-var-dart-6ulcustomboard-nand-wifi.dtb \
+diff --git a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-external.dtsi b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-external.dtsi
+new file mode 100644
+index 000000000000..5c1371933784
+--- /dev/null
++++ b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-external.dtsi
+@@ -0,0 +1,71 @@
++/*
++ * Copyright (C) 2015-2019 Variscite Ltd. - https://www.variscite.com
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	regulators {
++		reg_sd1_vmmc: regulator_sd1_vmmc {
++			compatible = "regulator-fixed";
++			regulator-name = "VSD_3V3";
++			regulator-min-microvolt = <3300000>;
++			regulator-max-microvolt = <3300000>;
++		};
++	};
++};
++
++&iomuxc {
++	pinctrl_usdhc1: usdhc1grp {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x17059
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x17059
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x17059
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x17059
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x17059
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x17059
++		>;
++	};
++
++	pinctrl_usdhc1_100mhz: usdhc1grp100mhz {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x170b9
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x100b9
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x170b9
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x170b9
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x170b9
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x170b9
++		>;
++	};
++
++	pinctrl_usdhc1_200mhz: usdhc1grp200mhz {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x170f9
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x100f9
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x170f9
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x170f9
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x170f9
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x170f9
++		>;
++	};
++
++	pinctrl_usdhc1_gpio: usdhc1_gpiogrp {
++		fsl,pins = <
++			MX6UL_PAD_CSI_DATA03__GPIO4_IO24		0x1b0b1 /* CD */
++		>;
++	};
++};
++
++&usdhc1 {
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
++	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
++	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
++	cd-gpios = <&gpio4 24 GPIO_ACTIVE_HIGH>;
++	no-1-8-v;
++	keep-power-in-suspend;
++	enable-sdio-wakeup;
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-internal.dtsi b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-internal.dtsi
+new file mode 100644
+index 000000000000..2a2c5ddd8557
+--- /dev/null
++++ b/arch/arm/boot/dts/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-internal.dtsi
+@@ -0,0 +1,71 @@
++/*
++ * Copyright (C) 2015-2019 Variscite Ltd. - https://www.variscite.com
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	regulators {
++		reg_sd1_vmmc: regulator_sd1_vmmc {
++			compatible = "regulator-fixed";
++			regulator-name = "VSD_3V3";
++			regulator-min-microvolt = <3300000>;
++			regulator-max-microvolt = <3300000>;
++		};
++	};
++};
++
++&iomuxc {
++	pinctrl_usdhc1: usdhc1grp {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x17059
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x17059
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x17059
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x17059
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x17059
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x17059
++		>;
++	};
++
++	pinctrl_usdhc1_100mhz: usdhc1grp100mhz {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x170b9
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x100b9
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x170b9
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x170b9
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x170b9
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x170b9
++		>;
++	};
++
++	pinctrl_usdhc1_200mhz: usdhc1grp200mhz {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x170f9
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x100f9
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x170f9
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x170f9
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x170f9
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x170f9
++		>;
++	};
++
++	pinctrl_usdhc1_gpio: usdhc1_gpiogrp {
++		fsl,pins = <
++			MX6UL_PAD_CSI_VSYNC__GPIO4_IO19		0x1b0b1 /* CD */
++		>;
++	};
++};
++
++&usdhc1 {
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_usdhc1_gpio>;
++	pinctrl-1 = <&pinctrl_usdhc1_100mhz>, <&pinctrl_usdhc1_gpio>;
++	pinctrl-2 = <&pinctrl_usdhc1_200mhz>, <&pinctrl_usdhc1_gpio>;
++	cd-gpios = <&gpio4 19 GPIO_ACTIVE_HIGH>;
++	no-1-8-v;
++	keep-power-in-suspend;
++	enable-sdio-wakeup;
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-external.dts b/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-external.dts
+new file mode 100644
+index 000000000000..07923684b4fd
+--- /dev/null
++++ b/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-external.dts
+@@ -0,0 +1,22 @@
++/*
++ * Copyright (C) 2016-2019 Variscite Ltd. - https://www.variscite.com
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/dts-v1/;
++
++#include "imx6ull.dtsi"
++
++#include "imx6ull-var-dart.dtsi"
++#include "imx6ul-imx6ull-var-dart-emmc.dtsi"
++
++#include "imx6ull-var-dart-6ulcustomboard.dtsi"
++#include "imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-external.dtsi"
++
++/ {
++	model = "Variscite DART-6UL with i.MX6ULL, eMMC & SD card support on VAR-6ULCustomBoard";
++	compatible = "variscite,imx6ul-var-dart", "fsl,imx6ull";
++};
+diff --git a/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-internal.dts b/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-internal.dts
+new file mode 100644
+index 000000000000..165945c7c1d4
+--- /dev/null
++++ b/arch/arm/boot/dts/imx6ull-var-dart-6ulcustomboard-emmc-sd-card-internal.dts
+@@ -0,0 +1,22 @@
++/*
++ * Copyright (C) 2016-2019 Variscite Ltd. - https://www.variscite.com
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/dts-v1/;
++
++#include "imx6ull.dtsi"
++
++#include "imx6ull-var-dart.dtsi"
++#include "imx6ul-imx6ull-var-dart-emmc.dtsi"
++
++#include "imx6ull-var-dart-6ulcustomboard.dtsi"
++#include "imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card-internal.dtsi"
++
++/ {
++	model = "Variscite DART-6UL with i.MX6ULL, eMMC & SD card support on VAR-6ULCustomBoard";
++	compatible = "variscite,imx6ul-var-dart", "fsl,imx6ull";
++};
