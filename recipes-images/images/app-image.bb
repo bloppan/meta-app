@@ -10,6 +10,7 @@ CORE_OS = "\
     openssh openssh-keygen openssh-sftp-server \
     packagegroup-core-boot \
     tzdata \
+    kernel-modules \
 "
 
 DEV_SDK = " \
@@ -69,7 +70,15 @@ EXTRA_TOOLS = " \
 WIFI = " \
     crda \
     iw \
+    bcm43xx-utils \
+    bluez5 \
+    bluez-alsa \
+    brcm-patchram-plus \
     wpa-supplicant \
+    wlconf \
+    hostapd \
+    linux-firmware-bcm4339 \
+    linux-firmware-bcm43430 \
 "
 
 USER_SOFTWARE = " \
@@ -90,6 +99,7 @@ IMAGE_INSTALL += " \
     ${EXTRA_TOOLS} \
     ${WIFI} \
     ${USER_CONFIG} \
+    ${USER_SOFTWARE} \
 "
 
 inherit extrausers
@@ -102,9 +112,9 @@ mount_smackfs () {
 
     cat >> ${IMAGE_ROOTFS}/etc/fstab <<EOF
     
-/dev/mmcblk0p1       /boot           vfat    defaults        1       2
-/dev/mmcblk0p2       /               ext4    defaults        1       1
-/dev/mmcblk0p3       /home           ext4    defaults        0       0 
+/dev/mmcblk1p1       /boot           vfat    defaults        1       2
+/dev/mmcblk1p2       /               ext4    defaults        1       1
+/dev/mmcblk1p3       /home           ext4    defaults        0       0 
 
 EOF
 } 

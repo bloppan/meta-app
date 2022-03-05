@@ -1,5 +1,5 @@
 DESCRIPTION = "Test user"
-SECTION = "User Applications"
+SECTION = "Test user applications"
 DEPENDS = ""
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
@@ -20,17 +20,17 @@ S = "${WORKDIR}/git"
 FILES_${PN} = "${bindir} "
 
 do_compile() {
-	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/GPIO_test/main.c -o GPIO_test
-	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/HTS221_test/main.c -o HTS221_test
-	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/PAC1932_test/main.c -o PAC1932_test
-	${CC} ${CFLAGS} ${LDFLAGS} -ldl -shared app_tests/PCA9532_test/main.c -o PCA9532_test
+	${CC} ${CFLAGS} ${LDFLAGS} app_tests/GPIO_test/main.c -o GPIO_test -Wl,--no-as-needed -ldl
+	${CC} ${CFLAGS} ${LDFLAGS} app_tests/WSEN_TIDS_test/main.c -o WSEN_TIDS_test -Wl,--no-as-needed -ldl
+	${CC} ${CFLAGS} ${LDFLAGS} app_tests/PAC1932_test/main.c -o PAC1932_test -Wl,--no-as-needed -ldl
+	${CC} ${CFLAGS} ${LDFLAGS} app_tests/PCA9532_test/main.c -o PCA9532_test -Wl,--no-as-needed -ldl
 }
 
 do_install() {
 
 	install -d ${D}${bindir}
 	install -m 0755 ${S}/GPIO_test ${D}${bindir}
-	install -m 0755 ${S}/HTS221_test ${D}${bindir}
+	install -m 0755 ${S}/WSEN_TIDS_test ${D}${bindir}
 	install -m 0755 ${S}/PAC1932_test ${D}${bindir}
 	install -m 0755 ${S}/PCA9532_test ${D}${bindir}
 }

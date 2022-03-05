@@ -4,6 +4,6 @@ part u-boot --source rawcopy --sourceparams="file=u-boot.img" --ondisk mmcblk --
 # Boot partition
 part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot --active --align 4096 --size 8M --extra-space 0
 # Rootfs partition
-part / --source rootfs --ondisk mmcblk --fstype=ext4 --label system --exclude-path=home/    
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label system --exclude-path=home/     
 part /home --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/home --ondisk mmcblk --fstype=ext4 --label home
 
