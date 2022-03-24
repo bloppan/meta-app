@@ -9,8 +9,8 @@ SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
 SRC_URI = " \
-		git://github.com/blpanadero/app_daemon.git;destsuffix=git/app_daemon;protocol=https \
-		git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes;protocol=https"
+		git://github.com/bloppan/app_daemon.git;destsuffix=git/app_daemon;protocol=https \
+		git://github.com/bloppan/app_includes.git;destsuffix=git/app_includes;protocol=https"
 
 S = "${WORKDIR}/git"
 

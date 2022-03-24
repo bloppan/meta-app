@@ -9,8 +9,8 @@ SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
 SRC_URI = " \
-	git://github.com/blpanadero/app_shared_libraries.git;destsuffix=git/app_shared_libraries;protocol=https \
-	git://github.com/blpanadero/app_includes.git;destsuffix=git/app_includes;protocol=https"
+	git://github.com/bloppan/app_shared_libraries.git;destsuffix=git/app_shared_libraries;protocol=https \
+	git://github.com/bloppan/app_includes.git;destsuffix=git/app_includes;protocol=https"
 
 S = "${WORKDIR}/git"
 
@@ -26,6 +26,7 @@ do_compile() {
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libWSEN_TIDS.so.${PV} ${S}/app_shared_libraries/libWSEN_TIDS/WSEN_TIDS.c -o libWSEN_TIDS.so.${PV}
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libPAC1932.so.${PV} ${S}/app_shared_libraries/libPAC1932/PAC1932.c -o libPAC1932.so.${PV}
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libPCA9532.so.${PV} ${S}/app_shared_libraries/libPCA9532/PCA9532.c -o libPCA9532.so.${PV}
+	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libCAN.so.${PV} ${S}/app_shared_libraries/libCAN/CAN.c -o libCAN.so.${PV}
 }
 
 do_install() {
