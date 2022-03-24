@@ -1,5 +1,5 @@
 #!/bin/sh
 
-userinit.sh &
+userinit.sh $1 &
 
 exit 0

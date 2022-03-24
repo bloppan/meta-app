@@ -42,12 +42,16 @@ DEV_SDK = " \
 
 EXTRA_TOOLS = " \
     android-tools \
+    apache2 \
     can-utils \
     coreutils \
     curl \
     diffutils \
     dosfstools \
+    e2fsprogs-e2fsck \
     e2fsprogs-mke2fs \
+    e2fsprogs-resize2fs \
+    parted \
     ethtool \
     findutils \
     i2c-tools \
