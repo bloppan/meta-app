@@ -1,0 +1,9 @@
+# Image Creator .wks
+part SPL --source rawcopy --sourceparams="file=SPL" --ondisk mmcblk --no-table --align 1
+part u-boot --source rawcopy --sourceparams="file=u-boot.img" --ondisk mmcblk --no-table --align 69
+# Boot partition
+part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot --active --align 4096 --size 8M --extra-space 0
+# Rootfs partition
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label system --exclude-path=home/     
+part /home --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/home --ondisk mmcblk --fstype=vfat --label home --size 1500M
+

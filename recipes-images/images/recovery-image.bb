@@ -1,4 +1,4 @@
-SUMMARY = "Simple app image"
+SUMMARY = "Simple recovery image"
 
 inherit image
 
@@ -94,7 +94,7 @@ USER_SOFTWARE = " \
 
 USER_CONFIG = " \
     config-files \
-    user-services \
+    recovery-services \
 "
 
 IMAGE_INSTALL += " \
@@ -106,7 +106,7 @@ IMAGE_INSTALL += " \
     ${USER_SOFTWARE} \
 "
 
-WKS_FILE = "custom-wic.wks"
+WKS_FILE = "recovery-wic.wks"
 
 inherit extrausers
 EXTRA_USERS_PARAMS = "\
@@ -118,14 +118,14 @@ mount_smackfs () {
 
     cat >> ${IMAGE_ROOTFS}/etc/fstab <<EOF
     
-/dev/mmcblk1p1       /boot           vfat    defaults        1       2
-/dev/mmcblk1p2       /               ext4    defaults        1       1
-/dev/mmcblk1p3       /home           ext4    defaults        0       0 
+/dev/mmcblk0p1       /boot           vfat    defaults        1       2
+/dev/mmcblk0p2       /               ext4    defaults        1       1
+/dev/mmcblk0p3       /home           ext4    defaults        0       0 
 
 EOF
 } 
 ROOTFS_POSTPROCESS_COMMAND += "mount_smackfs; "
 
-export IMAGE_BASENAME = "app-image"
+export IMAGE_BASENAME = "recovery-image"
 
 
