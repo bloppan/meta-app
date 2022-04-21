@@ -120,7 +120,7 @@ mount_smackfs () {
     
 /dev/mmcblk0p1       /boot           vfat    defaults        1       2
 /dev/mmcblk0p2       /               ext4    defaults        1       1
-/dev/mmcblk0p3       /home           ext4    defaults        0       0 
+/dev/mmcblk0p3       /home           vfat    defaults        1       2 
 
 EOF
 } 

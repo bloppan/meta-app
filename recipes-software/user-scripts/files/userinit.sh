@@ -42,15 +42,22 @@ check_swap_file() {
         #Comprueba si se esta arrancando desde la eMMC
         if mount | grep "/dev/mmcblk1"; then
                 #Comprueba si existe el fichero swap
-                if [ -f /home/swapfile.swap ]; then
+                if grep "swapfile" /etc/fstab; then
                         echo "Fichero swapfile.swap encontrado"
                 else
+                	 #Parpadeo de leds para indicar que no se desconecte el sistema
+			 PCA9532_test -BLINK 1 -ALL CYAN
+                        
                         echo "Creando fichero swap..."
                         dd if=/dev/zero of=/home/swapfile.swap bs=1K count=2M
                         chmod 600 /home/swapfile.swap
                         mkswap /home/swapfile.swap
                         swapon /home/swapfile.swap
                         echo '/home/swapfile.swap swap swap defaults 0 0' | tee -a /etc/fstab
+                        sync
+                        
+                        #Se apagan los leds
+                	 PCA9532_test -ALL OFF
                 fi
         fi
 }
@@ -63,6 +70,9 @@ check_partition3_size() {
         #Comprueba si el tama���ño de la particion 3 es menor que 100MB
         if [ "$CURRENTSIZE" -lt 100 ]; then
 
+		#Parpadeo de leds para indicar que no se desconecte el sistema
+		PCA9532_test -BLINK 1 -ALL CYAN
+		
                 #Comprueba si p3 esta montada
                 if mount | grep "/dev/mmcblk1p3"; then
 
@@ -82,6 +92,10 @@ check_partition3_size() {
 
                         mount /dev/mmcblk1p3 /home/
                 fi
+                sync
+                
+                #Se apagan los leds
+                PCA9532_test -ALL OFF
         fi
 }
 
@@ -101,6 +115,7 @@ check_uEnv_file() {
                 else
                         echo "fdt_file=imx6ull-var-dart-6ulcustomboard-emmc-wifi.dtb" > /boot/uEnv.txt
                 fi
+                sync
         fi
 }
 
@@ -121,11 +136,8 @@ support_system_init() {
         configure_eth_interface
         enable_sd_or_wifi
 
-        #echo 24 > /sys/class/gpio/export 
-        #echo in > /sys/class/gpio/gpio24/direction
-
         #Lanza la aplicacion principal del sistema de soporte
-        su -c app_daemon &
+        su -c app_daemond &
 }
 
 

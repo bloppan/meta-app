@@ -14,16 +14,16 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-INSANE_SKIP_${PN} = "ldflags"
 FILES_${PN} = "${bindir} "
 
 do_compile() {
-	${CC} ${CFLAGS} ${LDFLAGS} -lpthread -shared ${S}/app_daemon/src/main.cpp -o app_daemon/Release/app_daemon
+
+	${CXX} ${CFLAGS} ${LDFLAGS} ${S}/app_daemon/src/*.cpp -o app_daemond -lpthread -ldl
 }
 
 do_install() {
 	install -d ${D}${bindir}
-	install -m 0755 ${S}/app_daemon/Release/app_daemon ${D}${bindir}
+	install -m 0755 ${S}/app_daemond ${D}${bindir}
 }
 
 
