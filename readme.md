@@ -142,54 +142,74 @@ $ bitbake -c devshell helloworld
 ```
 
 #### Kernel and device tree
+##### Source code
 To modify the kernel source code, run:
 ```sh
 $ devtool modify virtual/kernel
 ```
+A copy of Linux kernel source code will be installed in the directory  ~/var-fslcyocto/build_x11/workspace/sources/linux-variscite/
+
+Modify the source code and then run:
+```sh
+git add .
+git commit -m "patch name"
+```
+Now you can create the patch and the append recipe "linux-variscite.bbappend" which apply it when the original recipe "linux-variscite.bb" be built.
+
+```sh
+$ devtool update-recipe -a ~/var-fslc-yocto/sources/meta-app linux-variscite
+```
+When finishing the modifications run:
+```sh
+$ devtool reset linux-variscite
+```
+##### Configurations
+Configure the Linux kernel through menuconfig:
+```sh
+$ bitbake -c menuconfig virtual/kernel
+```
+Save the new configuration:
+```sh
+$ bitbake -c savedefconfig virtual/kernel
+```
+It will create a new defconfig file which must be copied to ~/var-fslc-yocto/sources/meta-app/recipes-kernel/linux/linux-variscite/defconfig
+
+# Images
+You can have images with different configurations, such as production and debug images, for example. For each image, you will have one recipe. In this example the images availables are in ~/var-fslc-yocto/sources/meta-app/recipes-images/images/.
+Build the image running:
+```sh
+$ bitbake app-image
+```
+Or:
+```sh
+$ bitbake recovery-image
+```
+You can find the images and objects generated in ~/var-fslc-yocto/build_x11/tmp/deploy/images/imx6ul-var-dart-app/
+
+Decompress app-image-imx6ul-var-dart-app.wic.gz to get the Linux distribution image file. Flash the image in a SD card and try it in Variscite DART-6UL.
+```sh
+$ dd if=data of=/dev/sda
+```
+
+# References
+
+- [Desarrollo de un sistema de soporte para sondas moviles Android con Yocto Project](https://riunet.upv.es/bitstream/handle/10251/181908/Lopez%20-%20DESARROLLO%20DEL%20SOFTWARE%20DE%20UN%20SISTEMA%20DE%20SOPORTE%20PARA%20SONDAS%20MOVILES%20ANDROID%20CON%20YOCTO%20PR....pdf?sequence=1&isAllowed=y)
+- [Variscite Wiki](https://variwiki.com/index.php?title=Yocto_Build_Release&release=RELEASE_DUNFELL_V1.1_DART-6UL)
+- [Variscite products 2021]( https://www.variscite.com/product/systemon-module-som/cortex-a7/dart-6ul-freescale-imx-6ul/#generalinfo)
+- [Mega Manual Yocto Project](https://docs.yoctoproject.org/)
 
 
 
-## Plugins
-
-Dillinger is currently extended with the following plugins.
-Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
 
 
-## License
 
-MIT
 
-**Free Software, Hell Yeah!**
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
 
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+
+
+
+
+
 
