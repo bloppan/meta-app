@@ -77,25 +77,26 @@ Use different layers to logically separate information in your build. As an exam
 
 The layers are under "sources/" directory:
 ```sh
-├── build_x11
-├── downloads
-├── README -> sources/base/README
-├── setup-environment -> sources/base/setup-environment
-└── sources/
-        ├── base
-        ├── Documentation
-        ├── meta-app
-        ├── meta-freescale
-        ├── meta-freescale-3rdparty
-        ├── meta-freescale-distro
-        ├── meta-openembedded
-        ├── meta-python2
-        ├── meta-qt5
-        ├── meta-swupdate
-        ├── meta-variscite-fslc
-        ├── meta-variscite-hab
-        ├── meta-virtualization
-        └── poky
+~/var-fslc-yocto/
+    ├── build_x11
+    ├── downloads
+    ├── README -> sources/base/README
+    ├── setup-environment -> sources/base/setup-environment
+    └── sources/
+            ├── base
+            ├── Documentation
+            ├── meta-app
+            ├── meta-freescale
+            ├── meta-freescale-3rdparty
+            ├── meta-freescale-distro
+            ├── meta-openembedded
+            ├── meta-python2
+            ├── meta-qt5
+            ├── meta-swupdate
+            ├── meta-variscite-fslc
+            ├── meta-variscite-hab
+            ├── meta-virtualization
+            └── poky
 ```
 
 You can check the project layers running the following command:
@@ -186,7 +187,7 @@ $ bitbake recovery-image
 ```
 You can find the images and objects generated in ~/var-fslc-yocto/build_x11/tmp/deploy/images/imx6ul-var-dart-app/
 
-Decompress app-image-imx6ul-var-dart-app.wic.gz to get the Linux distribution image file. Flash the image in a SD card and try it in Variscite DART-6UL.
+Decompress app-image-imx6ul-var-dart-app.wic.gz to get the Linux distribution image file. Flash the image in a SD card and run it on Variscite DART-6UL system on module.
 ```sh
 $ dd if=data of=/dev/sda
 ```
