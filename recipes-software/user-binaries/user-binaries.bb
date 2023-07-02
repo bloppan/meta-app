@@ -20,13 +20,10 @@ do_compile() {
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libGPIO.so.${PV} ${S}/linux_userspace/libGPIO/GPIO.c -o libGPIO.so.${PV}
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libI2C.so.${PV} ${S}/linux_userspace/libI2C/I2C.c -o libI2C.so.${PV}
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -fPIC -Wl,-soname,libPCA9532.so.${PV} ${S}/linux_userspace/libPCA9532/PCA9532.c -o libPCA9532.so.${PV}
-#	${CC} ${CFLAGS} ${LDFLAGS} linux_userspace/PCA9532_test/main.c -o PCA9532_test -Wl,--no-as-needed -ldl
 }
 
 do_install() {
 
-#	install -d ${D}${libdir}
-#	install -m 0755 ${S}/PCA9532_test ${D}${bindir}
 	install -d ${D}${libdir}
 	install -m 0755 ${S}/lib*.so* ${D}${libdir}
 }
