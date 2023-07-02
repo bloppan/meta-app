@@ -1,4 +1,4 @@
-SUMMARY = "Simple recovery image"
+SUMMARY = "Debug image"
 
 inherit image
 
@@ -86,15 +86,13 @@ WIFI = " \
 "
 
 USER_SOFTWARE = " \
-    user-apps \
-    user-libs \
-    user-tests \
+    user-binaries \
     user-scripts \
 "
 
 USER_CONFIG = " \
     config-files \
-    recovery-services \
+    user-services \
 "
 
 IMAGE_INSTALL += " \
@@ -106,7 +104,7 @@ IMAGE_INSTALL += " \
     ${USER_SOFTWARE} \
 "
 
-WKS_FILE = "recovery-wic.wks"
+WKS_FILE = "debug-wic.wks"
 
 inherit extrausers
 EXTRA_USERS_PARAMS = "\
@@ -126,6 +124,6 @@ EOF
 } 
 ROOTFS_POSTPROCESS_COMMAND += "mount_smackfs; "
 
-export IMAGE_BASENAME = "recovery-image"
+export IMAGE_BASENAME = "debug-image"
 
 

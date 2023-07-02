@@ -1,4 +1,4 @@
-SUMMARY = "Simple app image"
+SUMMARY = "Release image"
 
 inherit image
 
@@ -11,33 +11,6 @@ CORE_OS = "\
     packagegroup-core-boot \
     tzdata \
     kernel-modules \
-"
-
-DEV_SDK = " \
-    binutils \
-    binutils-symlinks \
-    coreutils \
-    cpp \
-    cpp-symlinks \
-    diffutils \
-    elfutils elfutils-binutils \
-    file \
-    gcc \
-    gcc-symlinks \
-    g++ \
-    g++-symlinks \
-    gettext \
-    git \
-    ldd \
-    libstdc++ \
-    libstdc++-dev \
-    libtool \
-    ltrace \
-    make \
-    perl-modules \
-    pkgconfig \
-    python3-modules \
-    strace \
 "
 
 EXTRA_TOOLS = " \
@@ -86,10 +59,8 @@ WIFI = " \
 "
 
 USER_SOFTWARE = " \
-    user-apps \
-    user-libs \
-    user-tests \
     user-scripts \
+    user-binaries \
 "
 
 USER_CONFIG = " \
@@ -99,14 +70,13 @@ USER_CONFIG = " \
 
 IMAGE_INSTALL += " \
     ${CORE_OS} \
-    ${DEV_SDK} \
     ${EXTRA_TOOLS} \
     ${WIFI} \
     ${USER_CONFIG} \
     ${USER_SOFTWARE} \
 "
 
-WKS_FILE = "custom-wic.wks"
+WKS_FILE = "release-wic.wks"
 
 inherit extrausers
 EXTRA_USERS_PARAMS = "\
@@ -126,6 +96,6 @@ EOF
 } 
 ROOTFS_POSTPROCESS_COMMAND += "mount_smackfs; "
 
-export IMAGE_BASENAME = "app-image"
+export IMAGE_BASENAME = "release-image"
 
 
