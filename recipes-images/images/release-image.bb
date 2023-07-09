@@ -15,7 +15,6 @@ CORE_OS = "\
 
 EXTRA_TOOLS = " \
     android-tools \
-    apache2 \
     can-utils \
     coreutils \
     curl \
