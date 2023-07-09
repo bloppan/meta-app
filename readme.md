@@ -23,7 +23,7 @@ build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
 xz-utils debianutils iputils-ping libsdl1.2-dev xterm
 ```
 ```sh
-$ sudo apt-get install autoconf libtool libglib2.0-dev libarchive-dev python-git 
+$ sudo apt-get install autoconf libtool libglib2.0-dev libarchive-dev \
 sed cvs subversion coreutils texi2html docbook-utils python-pysqlite2 \
 help2man make gcc g++ desktop-file-utils libgl1-mesa-dev libglu1-mesa-dev \
 mercurial automake groff curl lzop asciidoc u-boot-tools dos2unix mtd-utils pv \
@@ -45,7 +45,7 @@ $ cd ~/var-fslc-yocto
 $ repo init -u https://github.com/varigit/variscite-bsp-platform.git -b dunfell
 $ repo sync -j$(nproc)
 ```
-Build X11 GUI demo image
+Build X11 GUI demo image. Then press space until accept the EULA.
 ```sh
 $ cd ~/var-fslc-yocto
 $ MACHINE=imx6ul-var-dart DISTRO=fslc-x11 . setup-environment build_x11
@@ -64,7 +64,7 @@ $ bitbake-layers add-layer ../sources/meta-app
 ```
 Run this command to build the image:
 ```sh
-$ bitbake app-image
+$ bitbake release-image
 ```
 
 # How works Yocto Project?
@@ -179,15 +179,15 @@ It will create a new defconfig file which must be copied to ~/var-fslc-yocto/sou
 You can have images with different configurations, such as production and debug images, for example. For each image, you will have one recipe. In this example the images availables are in ~/var-fslc-yocto/sources/meta-app/recipes-images/images/.
 Build the image running:
 ```sh
-$ bitbake app-image
+$ bitbake release-image
 ```
 Or:
 ```sh
-$ bitbake recovery-image
+$ bitbake debug-image
 ```
 You can find the images and objects generated in ~/var-fslc-yocto/build_x11/tmp/deploy/images/imx6ul-var-dart-app/
 
-Decompress app-image-imx6ul-var-dart-app.wic.gz to get the Linux distribution image file. Flash the image in a SD card and run it on Variscite DART-6UL system on module.
+Decompress release-image-imx6ul-var-dart-app.wic.gz to get the Linux distribution image file. Flash the image in a SD card and run it on Variscite DART-6UL system on module.
 ```sh
 $ dd if=data of=/dev/sda
 ```
