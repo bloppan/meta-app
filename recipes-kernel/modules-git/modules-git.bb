@@ -6,9 +6,9 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRCREV = "${AUTOREV}"
 SRCREV_FORMAT = "none"
 
-SRC_URI = "git://github.com/bloppan/linux_modules.git;destsuffix=git/linux_modules;protocol=https;branch=main "
+SRC_URI = "git://github.com/bloppan/linux_kernelspace.git;destsuffix=git/linux_kernelspace;protocol=https;branch=main "
 
-S = "${WORKDIR}/git/linux_modules/"
+S = "${WORKDIR}/git/linux_kernelspace/"
 
 FILES_${PN} = "${base_libdir}/modules "
 
